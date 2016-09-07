@@ -1,4 +1,5 @@
 <?php 
+include_once "CSS\login_style.css"
 session_start();//crea una sesión para ser usada mediante una petición GET o POST, o pasado por una cookie y la sentencia include_once es la usaremos para incluir el archivo de conexión a la base de datos que creamos anteriormente.
 include_once "conexion.php"; 
 <form action="" method="post" class="registro"> 
