@@ -1,4 +1,5 @@
 <?php 
+include_once "CSS\login_style.css"
 session_start();//crea una sesión para ser usada mediante una petición GET o POST, o pasado por una cookie y la sentencia include_once es la usaremos para incluir el archivo de conexión a la base de datos que creamos anteriormente.
 include_once "conexion.php"; 
 <form action="" method="post" class="registro"> 
@@ -8,7 +9,7 @@ include_once "conexion.php";
 <input type="password" name="password"></div> 
 <div><label>Repetir Clave:</label> 
 <input type="password" name="repassword"></div>
-<div><input type="text" name="email"></div>
+<div><label>Email:</label><input type="text" name="email"></div>
 <div><input type="submit" name="enviar" value="Registrar"></div> 
 </form> 
 /*Creamos el formulario con el campo de Usuario que se llamara $_POST['usuario'] y 2 campos para la clave y uno mas para confirmar si escribió bien la clave, se llamaran $_POST['password'] y $_POST['repassword'] respectivamente, procedemos a escribir el codigo que procesara y validara lo que el usuario ingrese:*/
@@ -38,7 +39,8 @@ if(isset($_POST['enviar']))//para saber si el botón registrar fue presionado.
             { 
                 $usuario = $_POST['usuario']; 
                 $password = $_POST['password']; 
-                $sql = "INSERT INTO usuarios (usuario,password) VALUES ('$usuario','$password')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
+                $email = $_POST['email'];
+                $sql = "INSERT INTO usuarios (usuario,password,email) VALUES ('$usuario','$password','$email')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
                 mysql_query($sql); 
   
                 echo 'Usted se ha registrado correctamente.'; 
