@@ -1,47 +1,51 @@
-<?php 
-session_start();//crea una sesi贸n para ser usada mediante una petici贸n GET o POST, o pasado por una cookie y la sentencia include_once es la usaremos para incluir el archivo de conexi贸n a la base de datos que creamos anteriormente.
-include_once "conexion.php"; 
-/*Creamos el formulario con el campo de Usuario que se llamara $_POST['usuario'] y 2 campos para la clave y uno mas para confirmar si escribi贸 bien la clave, se llamaran $_POST['password'] y $_POST['repassword'] respectivamente, procedemos a escribir el codigo que procesara y validara lo que el usuario ingrese:*/
-if(isset($_POST['enviar']))//para saber si el boton registrar fue presionado. 
-{ 
-    if($_POST['usuario'] == '' or $_POST['password'] == '' or $_POST['repassword'] == '' or $_POST['email'] == '')
-    { 
-        echo 'Por favor llene todos los campos.';//Si los campos est谩n vac铆os muestra el siguiente mensaje, caso contrario sigue el siguiente codigo.
-    } 
-    else 
-    { 
-        $sql = 'SELECT * FROM usuarios'; 
-        $rec = mysql_query($sql); 
-        $verificar_usuario = 0;//Creamos la variable $verificar_usuario que empieza con el valor 0 y si la condicion que verifica el usuario(abajo), entonces la variable toma el valor de 1 que quiere decir que ya existe ese nombre de usuario por lo tanto no se puede registrar
-  
-        while($result = mysql_fetch_object($rec)) 
-        { 
-            if($result->usuario == $_POST['usuario']) //Esta condici髇 verifica si ya existe el usuario 
-            { 
-                $verificar_usuario = 1; 
-            } 
-        } 
-  
-        if($verificar_usuario == 0) 
-        { 
-            if($_POST['password'] == $_POST['repassword'])//Si los campos son iguales, continua el registro y caso contrario saldr谩 un mensaje de error.
-            { 
-                $usuario = $_POST['usuario']; 
-                $password = $_POST['password'];
-                $email = $_POST['email'];
-                $sql = "INSERT INTO usuarios (usuario,password,email) VALUES ('$usuario','$password','$email')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
-                mysql_query($sql); 
-  
-                echo 'Usted se ha registrado correctamente.'; 
-            } 
-            else 
-            { 
-                echo 'Las claves no son iguales, intente nuevamente.'; 
-            } 
-        } 
-        else 
-        { 
-            echo 'Este usuario ya ha sido registrado anteriormente.'; 
-        } 
-    } 
-}?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="Images\idea-genial.png">
+<title>..--|Aula virtual|--..</title>
+<link href="CSS/bootstrap.min.css" rel="stylesheet">
+<link href="CSS/ie10-viewport-bug-workaround.css" rel="stylesheet">
+<link href="CSS/jumbotron-narrow.css" rel="stylesheet">
+<link rel="stylesheet" href="CSS/style.css" />
+<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation" class="active"><a href="index.html">Home</a></li>
+					<li role="presentation"><a href="#">Quienes somos</a></li>
+					<li role="presentation"><a href="#">Contacto</a></li>
+					<li role="presentation"><a href="#">Inicio de sesi髇</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Aula virtual</h3>
+		</div>
+		<div class="container">
+			<form class="form-signin">
+				<h2 class="form-signin-heading">Inicio de sesi髇</h2>
+				<label for="inputEmail" class="sr-only">Nombre de usuario</label> 
+				<input	type="text" id="inputUser" class="form-control"	placeholder="Usuario" required autofocus> 
+				<label for="inputPassword" class="sr-only">Password</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<div class="checkbox">
+				<label> <input type="checkbox" value="remember-me">Recordar</label>
+		</div>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+			</form>
+		</div>
+		<footer class="footer">
+			<p>&copy; 2016 All rights reserved.</p>
+		</footer>
+	</div>
+	<script src="JS/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
