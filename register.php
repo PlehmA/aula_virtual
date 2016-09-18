@@ -1,10 +1,10 @@
 <?php 
 session_start();//crea una sesión para ser usada mediante una petición GET o POST, o pasado por una cookie y la sentencia include_once es la usaremos para incluir el archivo de conexión a la base de datos que creamos anteriormente.
-include_once "conexion.php"; 
+include_once "include/dbb.php"; 
 /*Creamos el formulario con el campo de Usuario que se llamara $_POST['usuario'] y 2 campos para la clave y uno mas para confirmar si escribió bien la clave, se llamaran $_POST['password'] y $_POST['repassword'] respectivamente, procedemos a escribir el codigo que procesara y validara lo que el usuario ingrese:*/
 if(isset($_POST['enviar']))//para saber si el boton registrar fue presionado. 
 { 
-    if($_POST['usuario'] == '' or $_POST['password'] == '' or $_POST['repassword'] == '' or $_POST['email'] == '')
+    if($_POST['usuario'] == '' or $_POST['name'] or $_POST['password'] == '' or $_POST['repassword'] == '' or $_POST['email'] == '')
     { 
         echo 'Por favor llene todos los campos.';//Si los campos están vacíos muestra el siguiente mensaje, caso contrario sigue el siguiente codigo.
     } 
